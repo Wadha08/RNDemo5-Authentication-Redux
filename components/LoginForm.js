@@ -29,14 +29,14 @@ class LoginForm extends Component {
   };
 
   handlelogin = () => {
-    this.props.login();
+    this.props.login(this.state);
   };
 
   handlelogout = () => {
     this.props.logout();
   };
   handleSignup = () => {
-    this.props.signup();
+    this.props.signup(this.state);
   };
 
   render() {
@@ -48,7 +48,7 @@ class LoginForm extends Component {
           <Header />
           <Content>
             <Button onPress={this.handlelogout}>
-              <Text>logout</Text>
+              <Text>Logout {this.state.user.username}</Text>
             </Button>
           </Content>
         </Container>
@@ -83,6 +83,9 @@ class LoginForm extends Component {
               <Button onPress={this.handlelogin}>
                 <Text>Login</Text>
               </Button>
+              <Button onPress={this.handleSignup}>
+                <Text>Sign Up</Text>
+              </Button>
             </Form>
           </Content>
         </Container>
@@ -96,9 +99,9 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => {
   return {
-    login: (userData, navigation) => dispatch(login(userData, navigation)),
+    login: userData => dispatch(login(userData)),
     logout: () => dispatch(logout()),
-    signup: (userData, navigation) => dispatch(signup(userData, navigation)),
+    signup: userData => dispatch(signup(userData)),
     checkForToken: navigation => dispatch(checkForExpiredToken(navigation))
   };
 };
